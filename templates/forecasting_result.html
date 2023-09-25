@@ -1,0 +1,250 @@
+<!-- inventory_forecasting/templates/forecasting_result.html -->
+
+<html>
+
+<head>
+    <title>Inventory Forecasting Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<style>
+    /* #id1 {
+        border: 2px solid black;
+    } */
+</style>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <img class="text-center" src="../static/brightly.png" height="40px" width="200px" alt="Not Working">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+                            <a class="btn btn-secondary btn-sm" href="/about">Show Inventory</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active" href="#">Inventory Items</a> -->
+
+                        </li>
+                        <li class="nav-item">
+                            <!-- <a class="nav-link active" href="#">Inventory Items</a> -->
+
+                        </li>
+                    </ul>
+                    <div style="margin: 0px 150px;">
+                        <h2 style="color: aliceblue;">Inventory Management</h2>
+                    </div>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title " style="margin-left: 100px;" id="exampleModalLabel">Add Item
+                                        Stock to Inventory</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/addItemStock" method="post">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Item Name</label>
+                                            <input type="text" class="form-control" name="item name"
+                                                id="recipient-name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message-text" class="col-form-label">Quantity</label>
+                                            <input type="number" class="form-control" name="add quantity"
+                                                id="recipient-name">
+                                        </div>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Add To Stock</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="exampleModals" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h5 class="modal-title" style="margin-left: 180px;" id="exampleModalLabel">Order
+                                        Stock</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/orderItemStock" method="POST">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Item Name</label>
+                                            <input type="text" class="form-control" id="recipient-name"
+                                                name="item name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message-text" class="col-form-label">Quantity</label>
+                                            <input type="number" class="form-control" id="recipient-name"
+                                                name="order quantity">
+                                        </div>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Order Stock</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form> -->
+                    <button type="button" class="btn btn-success mx-3 btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Stock</button>
+                    <button type="button" class="btn btn-danger mx-3 btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModals" data-bs-whatever="@mdo">Order Stock</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../static/inv1.jpg" class="d-block w-100" height="400vh" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>First slide label</h5>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../static/inv2.webp" class="d-block w-100" height="400vh" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Second slide label</h5>
+                        <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../static/inv4.webp" class="d-block w-100" height="400vh" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Third slide label</h5>
+                        <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="container-fluid p-3 mb-5 rounded mt-4" style="background-color: F5F5F5;">
+        <div class="container">
+            <h3 class="text-center">Inventory Items Demand</h3>
+
+            <table class="table mb-5">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Stock to Maintain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product_line, value_array in results.items %}
+                    <tr>
+                        <td>{{ product_line }}</td>
+                        <td>{{ value_array.0 }}</td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <h2>Model Accuracy</h2>
+            <img src="data:image/png;base64,{{ chart_image }}" alt="Inventory Chart">
+        </div>
+    </div>
+    <div>
+        <footer>
+            <div class="card text-center container-fluid" style="background-color: F1F6F9;">
+                <div class="row m-5">
+                    <div class="col-sm-2"></div>
+                    <div class="card col-sm-2 p-2" style="border-radius: 15px;">
+                        <img src="../static/inv1.jpg" height="90px" width="50px" class="card-img-top"
+                            style="border-radius: 15px;" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Asestic Product</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="card col-sm-2 p-2" style="border-radius: 15px;">
+                        <img src="https://source.unsplash.com/100x100/?kitchen" height="90px" width="50px"
+                            class="card-img-top" alt="..." style="border-radius: 15px;">
+                        <div class="card-body">
+                            <p class="card-text">Confirm Product</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="card col-sm-2 p-2" style="border-radius: 15px;">
+                        <img src="https://source.unsplash.com/100x100/?utensils" height="90px" width="50px"
+                            class="card-img-top" alt="..." style="border-radius: 15px;">
+                        <div class="card-body">
+                            <p class="card-text">Assestic Essentials</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Brightly (A Siemens Comapany)</h5>
+                    <p class="card-text">Explore more with Brightly</p>
+                    <a href="#" class="btn btn-primary">Explore</a>
+                </div>
+                <div class="card-footer text-muted bg-dark">
+                    &copy; Platform Team
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
