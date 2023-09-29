@@ -20,8 +20,7 @@ from django.urls import path
 from inventory_forecasting import views
 
 urlpatterns = [
-    path('about', views.index, name='about'),
-    path('fun', views.func, name='fun'),
+    path('about', views.showInventoryStock, name='showInventoryStock'),
     path('forecasting', views.inventory_forecasting, name='inventory'),
     path('addItemStock', views.addItemStock, name='addItemStock'),
     path('orderItemStock', views.orderItemStock, name='orderItemStock')
